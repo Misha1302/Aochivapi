@@ -7,3 +7,5 @@ global using mem = Iced.Intel.AssemblerMemoryOperand;
 global using static Iced.Intel.AssemblerRegisters;
 global using Ioe = System.InvalidOperationException;
 global using Aofre = System.ArgumentOutOfRangeException;
+global using Unreachable = System.Diagnostics.UnreachableException;
+global using static Aochivapi.RegIntMem.RegIntMemType;

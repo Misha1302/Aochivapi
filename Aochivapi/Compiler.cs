@@ -30,8 +30,17 @@ public class Compiler
                     case OpType.Push:
                         function.Push(op.Arg1.Get<long>());
                         break;
+                    case OpType.IAdd:
+                        function.IAdd();
+                        break;
+                    case OpType.ISub:
+                        function.ISub();
+                        break;
                     case OpType.IMul:
                         function.Imul();
+                        break;
+                    case OpType.IDiv:
+                        function.IDiv();
                         break;
                     case OpType.RetValue:
                         function.RetValue();

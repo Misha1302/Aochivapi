@@ -4,28 +4,30 @@ public class StackManager
 {
     private int _index;
 
-    public OneOf<reg, int> GetToPush()
+    public RegIntMem GetToPush()
     {
         var result = GetCurrent();
         _index++;
         return result;
     }
 
-    public OneOf<reg, int> GetToPop()
+    public RegIntMem GetToPop()
     {
         _index--;
         return GetCurrent();
     }
 
-    private OneOf<reg, int> GetCurrent()
+    public RegIntMem Peek() => GetCurrent();
+
+    private RegIntMem GetCurrent()
     {
         var result = _index switch
         {
-            0 => new OneOf<reg, int>(r12),
-            1 => new OneOf<reg, int>(r13),
-            2 => new OneOf<reg, int>(r14),
-            3 => new OneOf<reg, int>(r15),
-            _ => new OneOf<reg, int>((_index - 4) * 8)
+            0 => new RegIntMem(r12),
+            1 => new RegIntMem(r13),
+            2 => new RegIntMem(r14),
+            3 => new RegIntMem(r15),
+            _ => new RegIntMem((_index - 4) * 8)
         };
         return result;
     }

@@ -18,31 +18,35 @@ public class FunctionCompiler
 
     public void Push(long value)
     {
-        var oneOf = _stackManager.GetToPush();
-        if (oneOf.Is<reg>()) Generator.mov(oneOf.Item1, AsData(value));
-        else Thrower.Throw(new Ioe());
+        Generator.mov(_stackManager.GetToPush(), AsData(value));
     }
 
     private mem AsData(long value) => __[Generator.dq(value).Label];
 
-    public void Imul()
-    {
-        Generator.mov(rax, _stackManager.GetToPop().Item1);
-        Generator.imul(rax, _stackManager.GetToPop().Item1);
-        Generator.mov(_stackManager.GetToPush().Item1, rax);
-    }
+    public void Imul() => BinOp(Generator.imul);
+    public void IAdd() => BinOp(Generator.iadd);
+    public void ISub() => BinOp(Generator.isub);
+    public void IDiv() => BinOp(Generator.idiv);
 
     public void RetVoid() => Generator.ret();
 
     public void RetValue()
     {
-        Generator.mov(rax, _stackManager.GetToPop().Item1);
+        Generator.mov(rax, _stackManager.GetToPop());
         Generator.ret();
     }
 
     public void Call(RLabel label)
     {
         Generator.call(label);
-        Generator.mov(_stackManager.GetToPush().Item1, rax);
+        Generator.mov(_stackManager.GetToPush(), rax);
+    }
+
+    private void BinOp(Action<RegIntMem, RegIntMem> op)
+    {
+        var b = _stackManager.GetToPop();
+        var a = _stackManager.GetToPop();
+        op(a, b);
+        _stackManager.GetToPush();
     }
 }

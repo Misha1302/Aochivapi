@@ -19,9 +19,14 @@ public static class Program
             new Op(OpType.RetValue)
         ], "Main");
 
+        // 5 * (100 / 7 - 8) -> 5 100 7 / 8 - * -> 30
         c.NewFunction([
-            new Op(OpType.Push, 52L),
-            new Op(OpType.Push, 32L),
+            new Op(OpType.Push, 5L),
+            new Op(OpType.Push, 100L),
+            new Op(OpType.Push, 7L),
+            new Op(OpType.IDiv),
+            new Op(OpType.Push, 8L),
+            new Op(OpType.ISub),
             new Op(OpType.IMul),
             new Op(OpType.RetValue)
         ], "NotMain");
