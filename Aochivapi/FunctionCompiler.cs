@@ -20,7 +20,7 @@ public class FunctionCompiler
     {
         var oneOf = _stackManager.GetToPush();
         if (oneOf.Is<reg>()) Generator.mov(oneOf.Item1, AsData(value));
-        else Thrower.Throw(new InvalidOperationException());
+        else Thrower.Throw(new Ioe());
     }
 
     private mem AsData(long value) => __[Generator.dq(value).Label];

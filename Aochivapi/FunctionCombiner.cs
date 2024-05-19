@@ -1,6 +1,7 @@
 ﻿namespace Aochivapi;
 
-using System.Text;using Iced.Intel;
+using System.Text;
+using Iced.Intel;
 
 public class FunctionCombiner(Assembler asm, List<FunctionGenerator> functions)
 {
